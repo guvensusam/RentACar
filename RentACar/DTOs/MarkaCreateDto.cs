@@ -1,7 +1,6 @@
 ﻿namespace RentACar.DTOs;
 
-public class MarkaDto
+public class MarkaCreateDto
 {
     public string MarkaAdi { get; set; } = string.Empty;
 }
-

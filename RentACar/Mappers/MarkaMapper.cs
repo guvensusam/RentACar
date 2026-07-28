@@ -5,11 +5,12 @@ namespace RentACar.Mappers;
 
 public static class MarkaMapper
 {
-    public static MarkaDto ToDto(this Marka marka)
+    public static MarkaResponseDto ToDto(this Marka marka)
     {
-        return new MarkaDto()
+        return new MarkaResponseDto()
         {
             MarkaAdi = marka.MarkaAdi,
+            
         };
     }
 }

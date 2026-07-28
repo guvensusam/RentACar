@@ -6,13 +6,13 @@ namespace RentACar.Service;
 
 public interface IMarka
 {
-    IEnumerable<MarkaDto> GetAllMarka();
+    IEnumerable<MarkaResponseDto> GetAllMarka();
     
-    MarkaDto GetByIdMarka(int markaId);
+    MarkaResponseDto GetByIdMarka(int markaId);
     
-    Marka CreateMarka(MarkaDto marka);
+    Marka CreateMarka(MarkaCreateDto markaResponse);
     
-    public bool  UpdateMarka(int MarkaId,MarkaDto marka);
+    public bool  UpdateMarka(int MarkaId,MarkaResponseDto markaResponse);
     
     bool DeleteMarka(int markaId);
     

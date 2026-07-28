@@ -6,7 +6,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();          // <-- 1. eksik olan
 builder.Services.AddOpenApi();
-builder.Services.AddScoped<IMarka, MarkaResponseService>();
+builder.Services.AddScoped<IMarka, MarkaService>();
 builder.Services.AddDbContext<RentACarDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 

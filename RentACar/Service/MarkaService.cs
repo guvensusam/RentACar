@@ -7,25 +7,25 @@ using RentACar.Model;
 
 namespace RentACar.Service;
 
-public class MarkaResponseService : IMarka
+public class MarkaService : IMarka
 {
     private readonly RentACarDbContext _context;
     
-    public MarkaResponseService(RentACarDbContext context)
+    public MarkaService(RentACarDbContext context)
     {
         _context = context;
     }
     
     
     
-    public IEnumerable<MarkaDto> GetAllMarka()
+    public IEnumerable<MarkaResponseDto> GetAllMarka()
     {
         return _context.Markalar
             .Select(x=>x.ToDto())
             .ToList();
     }
    
-    public MarkaDto GetByIdMarka(int markaId)
+    public MarkaResponseDto GetByIdMarka(int markaId)
     {
         var marka = _context.Markalar.FirstOrDefault(x=>x.MarkaId == markaId);
         if (marka == null)
@@ -35,7 +35,7 @@ public class MarkaResponseService : IMarka
         return marka.ToDto();
     }
 
-    public Marka CreateMarka(MarkaDto marka)
+    public Marka CreateMarka(MarkaCreateDto marka)
     {
         var markaekle = new Marka()
         {
@@ -46,15 +46,15 @@ public class MarkaResponseService : IMarka
         _context.SaveChanges();
         return markaekle;
     }
-
-    public bool UpdateMarka(int MarkaId, MarkaDto marka)
+     
+    public bool UpdateMarka(int MarkaId, MarkaResponseDto markaResponse)
     {
         var Marka= _context.Markalar.Find(MarkaId);
         if (Marka == null)
         {
             return false;
         }
-        Marka.MarkaAdi = marka.MarkaAdi;
+        Marka.MarkaAdi = markaResponse.MarkaAdi;
         _context.Markalar.Update(Marka);
         _context.SaveChanges();
         return true;
@@ -71,6 +71,5 @@ public class MarkaResponseService : IMarka
        _context.SaveChanges();
         return true;
     }
-    
     
 }
