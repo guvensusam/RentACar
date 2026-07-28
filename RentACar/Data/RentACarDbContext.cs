@@ -12,11 +12,11 @@ public class RentACarDbContext : DbContext
     }
     
     
-    public DbSet<Araba> Arabalar { get; set; }
-    public DbSet<CarModeli> CarModeli { get; set; }
-    public DbSet<Marka> Marka { get; set; }
-    public DbSet<Vites> Vites { get; set; }
-    public DbSet<Yakit> Yakit { get; set; }
+    public DbSet<Araba> Arabalarr { get; set; }
+    public DbSet<CarModeli> CarModelleri{ get; set; }
+    public DbSet<Marka> Markalar { get; set; }
+    public DbSet<Vites> Vitesler { get; set; }
+    public DbSet<Yakit> Yakitlar { get; set; }
     
     
 }

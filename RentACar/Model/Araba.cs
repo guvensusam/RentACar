@@ -11,7 +11,7 @@ public class Araba
     public float ToplamKm { get; set; }
     
     public Marka Marka { get; set; }
-    
+      
     
     public Vites Vites { get; set; }
     [ForeignKey(nameof(Vites))]
