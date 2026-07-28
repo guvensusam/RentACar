@@ -47,7 +47,7 @@ public class MarkaService : IMarka
         return markaekle.ToDto();
     }
      
-    public bool UpdateMarka(int MarkaId, MarkaResponseDto markaResponse)
+    public bool UpdateMarka(int MarkaId, MarkaCreateDto markaResponse)
     {
         var Marka= _context.Markalar.Find(MarkaId);
         if (Marka == null)
@@ -55,7 +55,7 @@ public class MarkaService : IMarka
             return false;
         }
         Marka.MarkaAdi = markaResponse.MarkaAdi;
-        _context.Markalar.Update(Marka);
+        
         _context.SaveChanges();
         return true;
     }

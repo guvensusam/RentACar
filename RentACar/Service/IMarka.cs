@@ -12,7 +12,7 @@ public interface IMarka
     
     MarkaResponseDto CreateMarka(MarkaCreateDto markaResponse);
     
-    public bool  UpdateMarka(int MarkaId,MarkaResponseDto markaResponse);
+    public bool  UpdateMarka(int MarkaId,MarkaCreateDto markaResponse);
     
     bool DeleteMarka(int markaId);
     

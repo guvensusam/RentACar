@@ -44,7 +44,7 @@ public class MarkaController : ControllerBase
     }
 
     [HttpPut("{MarkaId}")]
-    public ActionResult<MarkaResponseDto> Update(int MarkaId, MarkaResponseDto markaResponse)
+    public ActionResult<MarkaResponseDto> Update(int MarkaId, MarkaCreateDto markaResponse)
     {
         var updated = _service.UpdateMarka(MarkaId, markaResponse);
         return Ok(updated);
