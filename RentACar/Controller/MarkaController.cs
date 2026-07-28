@@ -14,14 +14,14 @@ public class MarkaController : ControllerBase
     {
         _service = service;
     }
-
+    
     [HttpGet]
     public ActionResult<IEnumerable<MarkaResponseDto>> Get()
     {
         return Ok(_service.GetAllMarka());
     }
 
-
+    
     [HttpGet("{MarkaId}")]
     public ActionResult<MarkaResponseDto> Get(int MarkaId)
     {
@@ -37,7 +37,7 @@ public class MarkaController : ControllerBase
         
         
     [HttpPost]
-    public ActionResult<MarkaCreateDto> Create(MarkaCreateDto markaResponse)
+    public ActionResult<MarkaResponseDto> Create(MarkaCreateDto markaResponse)
     {
         var markaekle = _service.CreateMarka(markaResponse);
         return Ok(markaekle);

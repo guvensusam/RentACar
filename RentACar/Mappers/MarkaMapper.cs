@@ -10,7 +10,7 @@ public static class MarkaMapper
         return new MarkaResponseDto()
         {
             MarkaAdi = marka.MarkaAdi,
-            
+            MarkaId =  marka.MarkaId,
         };
     }
 }

@@ -35,7 +35,7 @@ public class MarkaService : IMarka
         return marka.ToDto();
     }
 
-    public Marka CreateMarka(MarkaCreateDto marka)
+    public MarkaResponseDto CreateMarka(MarkaCreateDto marka)
     {
         var markaekle = new Marka()
         {
@@ -44,7 +44,7 @@ public class MarkaService : IMarka
         
         _context.Markalar.Add(markaekle);
         _context.SaveChanges();
-        return markaekle;
+        return markaekle.ToDto();
     }
      
     public bool UpdateMarka(int MarkaId, MarkaResponseDto markaResponse)

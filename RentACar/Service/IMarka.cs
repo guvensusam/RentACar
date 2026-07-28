@@ -10,7 +10,7 @@ public interface IMarka
     
     MarkaResponseDto GetByIdMarka(int markaId);
     
-    Marka CreateMarka(MarkaCreateDto markaResponse);
+    MarkaResponseDto CreateMarka(MarkaCreateDto markaResponse);
     
     public bool  UpdateMarka(int MarkaId,MarkaResponseDto markaResponse);
     
