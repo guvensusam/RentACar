@@ -8,9 +8,9 @@ namespace RentACar.Controller;
 [Route("api/[controller]")]
 public class ModelController : ControllerBase
 {
-    private readonly ModelService _service;
+    private readonly IModel _service;
     
-    public ModelController(ModelService service)
+    public ModelController(IModel service)
     {
         _service = service;
     }
