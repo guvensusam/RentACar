@@ -16,7 +16,7 @@ public class VitesController : ControllerBase
     }
  
  [HttpGet]
- public ActionResult<IEnumerable<MarkaResponseDto>> GetAll()
+ public ActionResult<IEnumerable<VitesResponseDto>> GetAll()
  {
     return Ok(_service.GetAllVites());
  }

@@ -30,6 +30,7 @@ public class VitesService : IVites
         {
             VitesTuru = dto.VitesTuru,
         };
+        _context.Vitesler.Add(create);
         _context.SaveChanges();
         return create.ToVitesDto();
     }
