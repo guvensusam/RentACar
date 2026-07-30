@@ -5,6 +5,6 @@ public class CarModelResponseDto
  
     public int Id { get; set; }
     public string ModelAdi { get; set; } = string.Empty;
-    public int MarkarId { get; set; }
-    
+    public int MarkaId { get; set; }
+    public  string MarkaAdi { get; set; } = string.Empty;
 }

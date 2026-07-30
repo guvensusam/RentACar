@@ -18,14 +18,17 @@ public class ModelService : IModel
     public IEnumerable<CarModelResponseDto> GetAllModel()
     {
        return _context.CarModelleri
-           .Include(x=>x.Arabalar)
+           .Include(x=>x.Marka)
            .Select(x=>x.ToModelDto())
            .ToList();
     }
 
     public CarModelResponseDto GetByIdModel(int modelId)
     {
-      var  model = _context.CarModelleri.Find(modelId);
+      var  model = _context.CarModelleri
+          .Include(x=>x.Marka)
+          .FirstOrDefault(model => model.Id == modelId);
+          
       if (model == null)
       {
           return null;
@@ -52,7 +55,7 @@ public class ModelService : IModel
       {
           return false;
       }
-      _context.CarModelleri.Update(model);
+      model.ModelAdi = modelCreateDto.ModelAdi;
       _context.SaveChanges();
       return true;
     }

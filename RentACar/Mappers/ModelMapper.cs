@@ -11,7 +11,8 @@ public static class ModelMapper
         {
             Id = carModel.Id,
             ModelAdi = carModel.ModelAdi,
-            MarkarId = carModel.MarkaId,
+            MarkaId = carModel.MarkaId,
+            MarkaAdi = carModel.Marka?.MarkaAdi ?? ""
         };
     }
         
