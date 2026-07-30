@@ -10,6 +10,10 @@ public class CarModeli
     
   
    public Marka Marka { get; set; }
+   public int MarkaId { get; set; }
+   
+   
+   public List<Araba> Arabalar { get; set; }
     
 }
 

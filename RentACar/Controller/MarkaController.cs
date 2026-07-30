@@ -32,10 +32,7 @@ public class MarkaController : ControllerBase
         }
        return Ok(marka);
     }
-        
-        
-        
-        
+    
     [HttpPost]
     public ActionResult<MarkaResponseDto> Create(MarkaCreateDto markaResponse)
     {

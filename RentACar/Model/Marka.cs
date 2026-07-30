@@ -7,10 +7,5 @@ public class Marka
     
     
     
-    
-    
-    
-    public List<Araba> Arabalar { get; set; }
-    
     public List<CarModeli> CarModelleri { get; set; }
 }

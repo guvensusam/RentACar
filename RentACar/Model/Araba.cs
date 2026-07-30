@@ -10,15 +10,16 @@ public class Araba
     public double ArabaFiyat { get; set; }
     public float ToplamKm { get; set; }
     
-    public Marka Marka { get; set; }
-      
     
+    public CarModeli CarModeli { get; set; }
+    [ForeignKey(nameof(CarModeli))]
+    public int CarModeliID { get; set; }
     public Vites Vites { get; set; }
     [ForeignKey(nameof(Vites))]
-    public int? VitesID { get; set; }
+    public int VitesID { get; set; }
     
     public Yakit Yakit { get; set; }
     [ForeignKey(nameof(Yakit))]
-    public int? YakitID { get; set; }
+    public int YakitID { get; set; }
     
 }
