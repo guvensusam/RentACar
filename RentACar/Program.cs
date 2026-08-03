@@ -11,6 +11,10 @@ builder.Services.AddScoped<IMarka, MarkaService>();
 builder.Services.AddScoped<IModel, ModelService>();
 builder.Services.AddScoped< IVites,VitesService>();
 builder.Services.AddScoped<IYakit,YakitService>();
+builder.Services.AddScoped<IAraba, ArabaService>();
+
+
+
 builder.Services.AddDbContext<RentACarDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddOpenApi(options =>

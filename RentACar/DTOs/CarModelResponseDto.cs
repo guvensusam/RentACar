@@ -7,4 +7,6 @@ public class CarModelResponseDto
     public string ModelAdi { get; set; } = string.Empty;
     public int MarkaId { get; set; }
     public  string MarkaAdi { get; set; } = string.Empty;
+
+    
 }

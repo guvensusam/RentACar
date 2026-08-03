@@ -11,6 +11,7 @@ public static class MarkaMapper
         {
             MarkaAdi = marka.MarkaAdi,
             MarkaId =  marka.MarkaId,
+            
         };
     }
 }

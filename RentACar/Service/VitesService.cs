@@ -15,8 +15,6 @@ public class VitesService : IVites
     }
     
     
-    
-    
     public IEnumerable<VitesResponseDto> GetAllVites()
     {
         return _context.Vitesler
