@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.DTOs;
@@ -16,16 +17,21 @@ public class ArabaService :IAraba
     }
     
     
-    public IEnumerable<ArabaResponseDto> GetAllAraba()
+   public IEnumerable<ArabaResponseDto> GetAllAraba(ArabaFilterDto filter)
     {
-        return _dbContext.Arabalarr
+        var query = _dbContext.Arabalarr
             .Include(x=>x.CarModeli)
             .ThenInclude(m=>m.Marka)
             .Include(x=>x.Vites)
             .Include(x=>x.Yakit)
-            .ToList()
-            .Select(x=>x.ToArabaDto())
-            .ToList();
+            .AsQueryable();
+
+        if (filter.ModelId.HasValue)
+        {
+            
+        }
+
+        return null ;
     }
     
     public ArabaResponseDto GetArabaById(int arabaId)
@@ -66,7 +72,7 @@ public class ArabaService :IAraba
           ArabaYasi = dto.ArabaYasi,
           ArabaFiyat = dto.ArabaFiyat,
           ToplamKm = dto.ToplamKm,
-          Id = dto.ModelId,
+          CarModeliID = dto.ModelId,
           VitesID = dto.VitesId,
           YakitID = dto.YakitId,
       };
@@ -75,20 +81,44 @@ public class ArabaService :IAraba
       _dbContext.SaveChanges();
       
       _dbContext.Entry(araba).Reference(x => x.CarModeli).Load();
-      _dbContext.Entry(araba).Reference(x => x.CarModeli.Marka).Load();
-      _dbContext.Entry(araba).Reference(y => y.Yakit).Load();
+      _dbContext.Entry(araba.CarModeli).Reference(x => x.Marka).Load();
       _dbContext.Entry(araba).Reference(x => x.Vites).Load();
+      _dbContext.Entry(araba).Reference(x => x.Yakit).Load();
       
       return araba.ToArabaDto();
     }
 
     public bool UpdateAraba(int id, ArabaCreateDto dto)
     {
-        throw new NotImplementedException();
+        var araba=_dbContext.Arabalarr
+            .FirstOrDefault(x=>x.Id == id);
+        
+        if (araba == null)
+        {
+            return false;
+        }
+        araba.ArabaAdi = dto.ArabaAdi;
+        araba.ArabaYasi = dto.ArabaYasi;
+        araba.ArabaFiyat = dto.ArabaFiyat;
+        araba.ToplamKm = dto.ToplamKm;
+        araba.CarModeliID = dto.ModelId;
+        araba.VitesID = dto.VitesId;
+        araba.YakitID = dto.YakitId;
+        
+        _dbContext.SaveChanges();
+        return true;
     }
 
     public bool DeleteAraba(int id)
     {
-        throw new NotImplementedException();
+        var araba = _dbContext.Arabalarr
+            .FirstOrDefault(x => x.Id == id);
+        if (araba == null)
+        {
+            return false;
+        }
+    _dbContext.Arabalarr.Remove(araba);
+    _dbContext.SaveChanges();
+    return true;
     }
 }

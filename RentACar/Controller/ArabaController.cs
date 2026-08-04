@@ -15,9 +15,9 @@ public class ArabaController : ControllerBase
     }
 
     [HttpGet]
-    public IEnumerable<ArabaResponseDto> GetAll()
+    public ActionResult<IEnumerable<ArabaResponseDto>> GetAll([FromQuery] ArabaFilterDto filter)
     {
-        return _services.GetAllAraba();
+        return Ok(_services.GetAllAraba(filter));
     }
 
     [HttpPost]
@@ -35,7 +35,7 @@ public class ArabaController : ControllerBase
     [HttpGet("{id}")]
     public ActionResult<ArabaResponseDto> GetArabaById(int id)
     {
-        return _services.GetArabaById(id);
+        return Ok(_services.GetArabaById(id));
     }
 
     [HttpPut("{id}")]
@@ -43,10 +43,11 @@ public class ArabaController : ControllerBase
     {
         return _services.UpdateAraba(id, arabaCreateDto);
     }
-
+    
     [HttpDelete("{id}")]
     public bool DeleteAraba(int id)
     {
         return _services.DeleteAraba(id);
     }
+    
 }
