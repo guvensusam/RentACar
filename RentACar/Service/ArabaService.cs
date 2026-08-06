@@ -25,13 +25,59 @@ public class ArabaService :IAraba
             .Include(x=>x.Vites)
             .Include(x=>x.Yakit)
             .AsQueryable();
-
+    
+        
         if (filter.ModelId.HasValue)
         {
-            
+           query= query.Where(x=>x.CarModeliID==filter.ModelId.Value);
+        }
+        
+        if (filter.MarkaId.HasValue)
+        {
+            query=query.Where(x=>x.CarModeli.MarkaId==filter.MarkaId.Value);
         }
 
-        return null ;
+        if (filter.VitesId.HasValue)
+        {
+            query=query.Where(x=>x.VitesID==filter.VitesId.Value);
+        }
+
+        if (filter.YakitId.HasValue)
+        {
+            query=query.Where(x=>x.YakitID==filter.YakitId.Value);
+        }
+
+        if (filter.MaxFiyat.HasValue)
+        {
+            query=query.Where(x=>x.ArabaFiyat<=filter.MaxFiyat.Value);
+        }
+
+        if (filter.MinFiyat.HasValue)
+        {
+            query=query.Where(x=>x.ArabaFiyat>=filter.MinFiyat.Value);
+        }
+
+        if (filter.MaxKm.HasValue)
+        {
+            query=query.Where(x=>x.ToplamKm<=filter.MaxKm.Value);
+        }
+
+        if (filter.MinKm.HasValue)
+        {
+            query=query.Where(x=>x.ToplamKm>=filter.MinKm.Value);
+        }
+
+        if (filter.MaxYil.HasValue)
+        {
+            query=query.Where(x=>x.ArabaYasi<=filter.MaxYil.Value);
+        }
+
+        if (filter.MinYil.HasValue)
+        {
+            query=query.Where(x=>x.ArabaYasi>=filter.MinYil.Value);
+        }
+
+        return query.ToList().Select(x => x.ToArabaDto());
     }
     
     public ArabaResponseDto GetArabaById(int arabaId)

@@ -7,7 +7,7 @@ public class Araba
     public int Id { get; set; }
     public int ArabaYasi { get; set; } 
     public string ArabaAdi { get; set; } =  string.Empty;
-    public double ArabaFiyat { get; set; }
+    public decimal ArabaFiyat { get; set; }
     public float ToplamKm { get; set; }
     
     

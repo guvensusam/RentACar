@@ -19,9 +19,9 @@ public class ArabaController : ControllerBase
     {
         return Ok(_services.GetAllAraba(filter));
     }
-
-    [HttpPost]
-
+    
+  
+     
     [HttpPost]
     public ActionResult<ArabaResponseDto> CreateAraba(ArabaCreateDto arabaCreateDto)
     {
