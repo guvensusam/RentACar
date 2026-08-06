@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.DTOs;
 using RentACar.Mappers;
@@ -14,21 +15,21 @@ public class YakitService : IYakit
         _context = context;
     }
 
-    public IEnumerable<YakitResponseDto> GetAllYakit()
+    public async Task<IEnumerable<YakitResponseDto>> GetAllYakitAsync()
     {
-        return _context.Yakitlar
+        return await _context.Yakitlar
             .Select(x => x.ToYakitDto())
-            .ToList();
+            .ToListAsync();
     }
 
-    public YakitResponseDto Create(YakitCreateDto dto)
+    public async Task<YakitResponseDto> CreateAsync(YakitCreateDto dto)
     {
         var create = new Yakit()
         {
             YakitAdi = dto.YakitAdi,
         };
         _context.Yakitlar.Add(create);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return create.ToYakitDto();
     }
 }

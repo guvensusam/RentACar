@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.DTOs;
 using RentACar.Mappers;
@@ -15,21 +16,21 @@ public class VitesService : IVites
     }
     
     
-    public IEnumerable<VitesResponseDto> GetAllVites()
+    public async Task<IEnumerable<VitesResponseDto>> GetAllVitesAsync()
     {
-        return _context.Vitesler
+        return await _context.Vitesler
             .Select(x => x.ToVitesDto())
-            .ToList();
+            .ToListAsync();
     }
 
-    public VitesResponseDto Create(VitesCreateDto dto)
+    public async Task<VitesResponseDto> CreateAsync(VitesCreateDto dto)
     {
-        var create = new Vites()
+        var  create = new Vites()
         {
             VitesTuru = dto.VitesTuru,
         };
-        _context.Vitesler.Add(create);
-        _context.SaveChanges();
-        return create.ToVitesDto();
+         _context.Vitesler.Add(create);
+        await _context.SaveChangesAsync();
+        return  create.ToVitesDto();
     }
 }

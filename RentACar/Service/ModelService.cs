@@ -15,19 +15,19 @@ public class ModelService : IModel
         _context = context;
     }
     
-    public IEnumerable<CarModelResponseDto> GetAllModel()
+    public async Task<IEnumerable<CarModelResponseDto>> GetAllModel()
     {
-       return _context.CarModelleri
+       return await _context.CarModelleri
            .Include(x=>x.Marka)
            .Select(x=>x.ToModelDto())
-           .ToList();
+           .ToListAsync();
     }
 
-    public CarModelResponseDto GetByIdModel(int modelId)
+    public async Task<CarModelResponseDto> GetByIdModel(int modelId)
     {
-      var  model = _context.CarModelleri
+      var  model = await _context.CarModelleri
           .Include(x=>x.Marka)
-          .FirstOrDefault(model => model.Id == modelId);
+          .FirstOrDefaultAsync(model => model.Id == modelId);
           
       if (model == null)
       {
@@ -36,7 +36,7 @@ public class ModelService : IModel
       return model.ToModelDto();
     }
 
-    public CarModelResponseDto CreateModel(CarModelCreateDto modelCreateDto)
+    public async Task<CarModelResponseDto> CreateModel(CarModelCreateDto modelCreateDto)
     {
         var create = new CarModeli()
         {
@@ -44,32 +44,32 @@ public class ModelService : IModel
             ModelAdi = modelCreateDto.ModelAdi,
         };
         _context.CarModelleri.Add(create);
-        _context.SaveChanges();
+       await  _context.SaveChangesAsync();
         return create.ToModelDto();
     }
 
-    public bool UpdateModel(int modelId, CarModelCreateDto modelCreateDto)
+    public async Task<bool> UpdateModel(int modelId, CarModelCreateDto modelCreateDto)
     {
-      var  model = _context.CarModelleri.Find(modelId);
+      var  model =await  _context.CarModelleri.FindAsync(modelId);
       if (model == null)
       {
           return false;
       }
       model.ModelAdi = modelCreateDto.ModelAdi;
-      _context.SaveChanges();
+      await _context.SaveChangesAsync();
       return true;
     }
 
-    public bool DeleteModel(int modelId)
+    public async Task<bool> DeleteModel(int modelId)
     {
-        var model =_context.CarModelleri.Find(modelId);
+        var model =await _context.CarModelleri.FindAsync(modelId);
         if (model == null)
         {
             return false;
             
         }
         _context.CarModelleri.Remove(model);
-        _context.SaveChanges();
+       await  _context.SaveChangesAsync();
         return true;
     }
 }

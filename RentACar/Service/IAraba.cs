@@ -4,13 +4,13 @@ namespace RentACar.Service;
 
 public interface IAraba
 {
-    IEnumerable<ArabaResponseDto>  GetAllAraba(ArabaFilterDto filter);
-    ArabaResponseDto GetArabaById(int arabaId);
+    Task<IEnumerable<ArabaResponseDto>>  GetAllAraba(ArabaFilterDto filter);
+    Task<ArabaResponseDto> GetArabaById(int arabaId);
     
-    ArabaResponseDto CreateAraba(ArabaCreateDto dto);
+    Task<ArabaResponseDto> CreateAraba(ArabaCreateDto dto);
 
-    bool UpdateAraba(int id, ArabaCreateDto dto);
+    Task<bool> UpdateAraba(int id, ArabaCreateDto dto);
     
-    bool DeleteAraba(int id);
+    Task<bool> DeleteAraba(int id);
     
 }

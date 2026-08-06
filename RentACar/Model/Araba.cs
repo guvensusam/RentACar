@@ -22,4 +22,7 @@ public class Araba
     [ForeignKey(nameof(Yakit))]
     public int YakitID { get; set; }
     
+    
+    
+    
 }

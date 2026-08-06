@@ -4,13 +4,13 @@ namespace RentACar.Service;
 
 public interface IModel
 {
-    IEnumerable<CarModelResponseDto> GetAllModel();
+    Task<IEnumerable<CarModelResponseDto>> GetAllModel();
     
-    CarModelResponseDto GetByIdModel(int modelId);
+    Task<CarModelResponseDto> GetByIdModel(int modelId);
     
-    CarModelResponseDto CreateModel(CarModelCreateDto modelCreateDto);
+    Task<CarModelResponseDto> CreateModel(CarModelCreateDto modelCreateDto);
     
-    public bool  UpdateModel(int modelId,CarModelCreateDto modelCreateDto);
+    public Task<bool>  UpdateModel(int modelId,CarModelCreateDto modelCreateDto);
     
-    bool DeleteModel(int modelId);
+    Task<bool> DeleteModel(int modelId);
 }

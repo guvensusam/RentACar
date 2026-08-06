@@ -16,16 +16,16 @@ public class MarkaController : ControllerBase
     }
     
     [HttpGet]
-    public ActionResult<IEnumerable<MarkaResponseDto>> Get()
+    public async Task<ActionResult<IEnumerable<MarkaResponseDto>>> Get()
     {
-        return Ok(_service.GetAllMarka());
+        return Ok(await _service.GetAllMarka());
     }
 
     
     [HttpGet("{MarkaId}")]
-    public ActionResult<MarkaResponseDto> Get(int MarkaId)
+    public async Task<ActionResult<MarkaResponseDto>> Get(int MarkaId)
     {
-        var marka = _service.GetByIdMarka(MarkaId);
+        var marka = await _service.GetByIdMarka(MarkaId);
         if (marka == null)
         {
             return NotFound();
@@ -34,21 +34,21 @@ public class MarkaController : ControllerBase
     }
     
     [HttpPost]
-    public ActionResult<MarkaResponseDto> Create(MarkaCreateDto markaResponse)
+    public async Task<ActionResult<MarkaResponseDto>> Create(MarkaCreateDto markaResponse)
     {
-        var markaekle = _service.CreateMarka(markaResponse);
+        var markaekle = await _service.CreateMarka(markaResponse);
         return Ok(markaekle);
     }
 
     [HttpPut("{MarkaId}")]
-    public ActionResult<MarkaResponseDto> Update(int MarkaId, MarkaCreateDto markaResponse)
-    {
-        var updated = _service.UpdateMarka(MarkaId, markaResponse);
+    public async Task<ActionResult<MarkaResponseDto>> Update(int MarkaId, MarkaCreateDto markaResponse)
+    { 
+        var updated = await _service.UpdateMarka(MarkaId, markaResponse); 
         return Ok(updated);
     }
     
     [HttpDelete("{MarkaId}")]
-    public ActionResult<MarkaResponseDto> Delete(int MarkaId){
-        var deleted = _service.DeleteMarka(MarkaId);
+    public async Task< ActionResult<MarkaResponseDto> > Delete(int MarkaId){
+        var deleted =await  _service.DeleteMarka(MarkaId);
         return Ok(deleted);}
 }

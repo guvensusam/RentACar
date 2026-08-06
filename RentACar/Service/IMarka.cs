@@ -6,15 +6,15 @@ namespace RentACar.Service;
 
 public interface IMarka
 {
-    IEnumerable<MarkaResponseDto> GetAllMarka();
+    Task<IEnumerable<MarkaResponseDto>> GetAllMarka();
     
-    MarkaResponseDto GetByIdMarka(int markaId);
+    Task<MarkaResponseDto> GetByIdMarka(int markaId);
     
-    MarkaResponseDto CreateMarka(MarkaCreateDto markaResponse);
+    Task<MarkaResponseDto> CreateMarka(MarkaCreateDto markaResponse);
     
-    public bool  UpdateMarka(int MarkaId,MarkaCreateDto markaResponse);
+    public Task<bool>  UpdateMarka(int MarkaId,MarkaCreateDto markaResponse);
     
-    bool DeleteMarka(int markaId);
+    Task<bool> DeleteMarka(int markaId);
     
     
 }

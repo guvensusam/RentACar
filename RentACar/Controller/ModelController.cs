@@ -16,15 +16,15 @@ public class ModelController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<CarModelResponseDto>> GetAll()
+    public async Task<ActionResult<IEnumerable<CarModelResponseDto>>> GetAll()
     {
-        return Ok(_service.GetAllModel());
+        return Ok(await _service.GetAllModel());
     }
 
     [HttpGet("{modelId:int}")]
-    public ActionResult<CarModelResponseDto> Get(int modelId)
+    public async Task<ActionResult<CarModelResponseDto>> Get(int modelId)
     {
-       var model = _service.GetByIdModel(modelId);
+       var model = await _service.GetByIdModel(modelId);
        if (model == null)
        {
            return NotFound();
@@ -34,25 +34,25 @@ public class ModelController : ControllerBase
     }
 
     [HttpPost]
-    public ActionResult<CarModelResponseDto> Create(CarModelCreateDto model)
+    public async Task<ActionResult<CarModelResponseDto>> Create(CarModelCreateDto model)
     {
-        var create = _service.CreateModel(model);
+        var create = await _service.CreateModel(model);
         return Ok(create);
     }
 
     [HttpPut("{modelId:int}")]
-    public ActionResult<CarModelResponseDto> Update(int modelId,CarModelCreateDto model)
+    public async Task<ActionResult<CarModelResponseDto>> Update(int modelId,CarModelCreateDto model)
 
     {
-        var uptade = _service.UpdateModel(modelId, model);
+        var uptade = await _service.UpdateModel(modelId, model);
         return Ok(uptade);
 
     }
 
     [HttpDelete("{modelId:int}")]
-    public ActionResult<CarModelResponseDto> Delete(int modelId)
+    public async Task<ActionResult<CarModelResponseDto>> Delete(int modelId)
     {
-        var delete = _service.DeleteModel(modelId);
+        var delete = await _service.DeleteModel(modelId);
         return Ok(delete);
     }
 

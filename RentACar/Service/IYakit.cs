@@ -4,7 +4,7 @@ namespace RentACar.Service;
 
 public interface IYakit
 {
-    IEnumerable<YakitResponseDto> GetAllYakit();
+    Task<IEnumerable<YakitResponseDto>> GetAllYakitAsync();
     
-    YakitResponseDto Create(YakitCreateDto dto);
+    Task<YakitResponseDto> CreateAsync(YakitCreateDto dto);
 }

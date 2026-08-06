@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.DTOs;
 using RentACar.Mappers;
@@ -18,16 +19,16 @@ public class MarkaService : IMarka
     
     
     
-    public IEnumerable<MarkaResponseDto> GetAllMarka()
+    public async Task<IEnumerable<MarkaResponseDto>> GetAllMarka()
     {
-        return _context.Markalar
+        return await _context.Markalar
             .Select(x=>x.ToDto())
-            .ToList();
+            .ToListAsync();
     }
    
-    public MarkaResponseDto GetByIdMarka(int markaId)
+    public async Task<MarkaResponseDto> GetByIdMarka(int markaId)
     {
-        var marka = _context.Markalar.FirstOrDefault(x=>x.MarkaId == markaId);
+        var marka = await _context.Markalar.FirstOrDefaultAsync(x=>x.MarkaId == markaId);
         if (marka == null)
         {
             return null;
@@ -35,7 +36,7 @@ public class MarkaService : IMarka
         return marka.ToDto();
     }
 
-    public MarkaResponseDto CreateMarka(MarkaCreateDto marka)
+    public async Task<MarkaResponseDto> CreateMarka(MarkaCreateDto marka)
     {
         var markaekle = new Marka()
         {
@@ -43,32 +44,32 @@ public class MarkaService : IMarka
         };
         
         _context.Markalar.Add(markaekle);
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return markaekle.ToDto();
     }
      
-    public bool UpdateMarka(int MarkaId, MarkaCreateDto markaResponse)
+    public async Task<bool> UpdateMarka(int MarkaId, MarkaCreateDto markaResponse)
     {
-        var Marka= _context.Markalar.Find(MarkaId);
-        if (Marka == null)
+        var marka= await _context.Markalar.FindAsync(MarkaId);
+        if (marka == null)
         {
             return false;
         }
-        Marka.MarkaAdi = markaResponse.MarkaAdi;
+        marka.MarkaAdi = markaResponse.MarkaAdi;
         
-        _context.SaveChanges();
+        await _context.SaveChangesAsync();
         return true;
     }
 
-    public bool DeleteMarka(int Id)
+    public async Task<bool> DeleteMarka(int Id)
     {
-        var marka = _context.Markalar.FirstOrDefault(x=>x.MarkaId == Id);
+        var marka = await _context.Markalar.FirstOrDefaultAsync(x=>x.MarkaId == Id);
         if (marka == null)
         {
             return false;
         }
        _context.Markalar.Remove(marka);
-       _context.SaveChanges();
+       await _context.SaveChangesAsync();
         return true;
     }
     

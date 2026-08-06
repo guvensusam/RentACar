@@ -17,7 +17,7 @@ public class ArabaService :IAraba
     }
     
     
-   public IEnumerable<ArabaResponseDto> GetAllAraba(ArabaFilterDto filter)
+   public async Task<IEnumerable<ArabaResponseDto>> GetAllAraba(ArabaFilterDto filter)
     {
         var query = _dbContext.Arabalarr
             .Include(x=>x.CarModeli)
@@ -77,36 +77,37 @@ public class ArabaService :IAraba
             query=query.Where(x=>x.ArabaYasi>=filter.MinYil.Value);
         }
 
-        return query.ToList().Select(x => x.ToArabaDto());
+        var arabalar = await query.ToListAsync();
+        return arabalar.Select(x=>x.ToArabaDto());
     }
     
-    public ArabaResponseDto GetArabaById(int arabaId)
+    public async Task<ArabaResponseDto> GetArabaById(int arabaId)
     {
-       var araba = _dbContext.Arabalarr
+       var araba = await _dbContext.Arabalarr
            .Include(x=>x.CarModeli)
            .ThenInclude(m=>m.Marka)
            .Include(x=>x.Vites)
            .Include(x=>x.Yakit)
-           .FirstOrDefault(x=>x.Id == arabaId);
+           .FirstOrDefaultAsync(x=>x.Id == arabaId);
        return araba?.ToArabaDto();
             
     }
 
-    public ArabaResponseDto CreateAraba(ArabaCreateDto dto)
+    public async Task<ArabaResponseDto> CreateAraba(ArabaCreateDto dto)
     {
-      var modelVarmi=_dbContext.CarModelleri.Any(x=>x.Id==dto.ModelId);
+      var modelVarmi=await _dbContext.CarModelleri.AnyAsync(x=>x.Id==dto.ModelId);
       if (modelVarmi==false)
       {
           return null;
       }
       
-      var vitesVarmi = _dbContext.Vitesler.Any(x=>x.VitesId==dto.VitesId);
+      var vitesVarmi =await  _dbContext.Vitesler.AnyAsync(x=>x.VitesId==dto.VitesId);
       if (vitesVarmi == false)
       {
           return null;
           
       }
-      var YakitVarmi=_dbContext.Yakitlar.Any(x=>x.YakitId==dto.YakitId);
+      var YakitVarmi=await _dbContext.Yakitlar.AnyAsync(x=>x.YakitId==dto.YakitId);
       if (YakitVarmi == false)
       {
           return null;
@@ -124,20 +125,20 @@ public class ArabaService :IAraba
       };
 
       _dbContext.Arabalarr.Add(araba);
-      _dbContext.SaveChanges();
+      await _dbContext.SaveChangesAsync();
       
-      _dbContext.Entry(araba).Reference(x => x.CarModeli).Load();
-      _dbContext.Entry(araba.CarModeli).Reference(x => x.Marka).Load();
-      _dbContext.Entry(araba).Reference(x => x.Vites).Load();
-      _dbContext.Entry(araba).Reference(x => x.Yakit).Load();
+      await _dbContext.Entry(araba).Reference(x => x.CarModeli).LoadAsync();
+      await _dbContext.Entry(araba.CarModeli).Reference(x => x.Marka).LoadAsync();
+      await _dbContext.Entry(araba).Reference(x => x.Vites).LoadAsync();
+     await  _dbContext.Entry(araba).Reference(x => x.Yakit).LoadAsync();
       
       return araba.ToArabaDto();
     }
 
-    public bool UpdateAraba(int id, ArabaCreateDto dto)
+    public async Task<bool> UpdateAraba(int id, ArabaCreateDto dto)
     {
-        var araba=_dbContext.Arabalarr
-            .FirstOrDefault(x=>x.Id == id);
+        var araba=await _dbContext.Arabalarr
+            .FirstOrDefaultAsync(x=>x.Id == id);
         
         if (araba == null)
         {
@@ -151,20 +152,20 @@ public class ArabaService :IAraba
         araba.VitesID = dto.VitesId;
         araba.YakitID = dto.YakitId;
         
-        _dbContext.SaveChanges();
+        await _dbContext.SaveChangesAsync();
         return true;
     }
 
-    public bool DeleteAraba(int id)
+    public async Task<bool> DeleteAraba(int id)
     {
-        var araba = _dbContext.Arabalarr
-            .FirstOrDefault(x => x.Id == id);
+        var araba = await  _dbContext.Arabalarr
+            .FirstOrDefaultAsync(x => x.Id == id);
         if (araba == null)
         {
             return false;
         }
     _dbContext.Arabalarr.Remove(araba);
-    _dbContext.SaveChanges();
+   await  _dbContext.SaveChangesAsync();
     return true;
     }
 }

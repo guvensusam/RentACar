@@ -15,17 +15,17 @@ public class ArabaController : ControllerBase
     }
 
     [HttpGet]
-    public ActionResult<IEnumerable<ArabaResponseDto>> GetAll([FromQuery] ArabaFilterDto filter)
+    public async Task<ActionResult<IEnumerable<ArabaResponseDto>>> GetAll([FromQuery] ArabaFilterDto filter)
     {
-        return Ok(_services.GetAllAraba(filter));
+        return  Ok(await _services.GetAllAraba(filter));
     }
     
   
      
     [HttpPost]
-    public ActionResult<ArabaResponseDto> CreateAraba(ArabaCreateDto arabaCreateDto)
+    public async Task<ActionResult<ArabaResponseDto>> CreateAraba(ArabaCreateDto arabaCreateDto)
     {
-        var sonuc = _services.CreateAraba(arabaCreateDto);
+        var sonuc = await _services.CreateAraba(arabaCreateDto);
         if (sonuc == null)
             return BadRequest("Geçersiz CarModeliId, VitesId ya da YakitId.");
 
@@ -33,21 +33,21 @@ public class ArabaController : ControllerBase
     }
 
     [HttpGet("{id}")]
-    public ActionResult<ArabaResponseDto> GetArabaById(int id)
+    public async Task<ActionResult<ArabaResponseDto>> GetArabaById(int id)
     {
-        return Ok(_services.GetArabaById(id));
+        return Ok(await _services.GetArabaById(id));
     }
 
     [HttpPut("{id}")]
-    public bool UpdateAraba(int id, ArabaCreateDto arabaCreateDto)
+    public async Task<bool> UpdateAraba(int id, ArabaCreateDto arabaCreateDto)
     {
-        return _services.UpdateAraba(id, arabaCreateDto);
+        return await  _services.UpdateAraba(id, arabaCreateDto);
     }
     
     [HttpDelete("{id}")]
-    public bool DeleteAraba(int id)
+    public async Task<bool> DeleteAraba(int id)
     {
-        return _services.DeleteAraba(id);
+        return await _services.DeleteAraba(id);
     }
     
 }

@@ -16,15 +16,15 @@ public class VitesController : ControllerBase
     }
  
  [HttpGet]
- public ActionResult<IEnumerable<VitesResponseDto>> GetAll()
+ public async Task<ActionResult<IEnumerable<VitesResponseDto>>> GetAll()
  {
-    return Ok(_service.GetAllVites());
+    return Ok(await _service.GetAllVitesAsync());
  }
 
  [HttpPost]
- public ActionResult<VitesResponseDto> Create(VitesCreateDto dto)
+ public async Task <ActionResult<VitesResponseDto>> Create(VitesCreateDto dto)
  {
-   return Ok(_service.Create(dto));
+   return Ok(await _service.CreateAsync(dto));
    
  }
  

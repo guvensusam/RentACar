@@ -4,7 +4,7 @@ namespace RentACar.Service;
 
 public interface IVites
 {
-    IEnumerable<VitesResponseDto> GetAllVites();
+    Task<IEnumerable<VitesResponseDto>> GetAllVitesAsync();
     
-    VitesResponseDto Create(VitesCreateDto dto);
+    Task<VitesResponseDto> CreateAsync(VitesCreateDto dto);
 }

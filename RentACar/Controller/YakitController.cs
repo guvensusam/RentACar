@@ -18,16 +18,15 @@ public class YakitController : ControllerBase
 
 
     [HttpGet]
-    public ActionResult<IEnumerable<YakitResponseDto>> GettAll()
+    public async Task<ActionResult<IEnumerable<YakitResponseDto>>> GettAll()
     {
-        return Ok(_service.GetAllYakit());
+        return Ok(await _service.GetAllYakitAsync());
     }
 
     [HttpPost]
-    public ActionResult<YakitResponseDto> Create(YakitCreateDto yakitCreate)
+    public async Task<ActionResult<YakitResponseDto>> Create(YakitCreateDto yakitCreate)
     {
-        return Ok(_service.Create(yakitCreate));
-        
+        return Ok(await _service.CreateAsync(yakitCreate));
     }
     
 }
