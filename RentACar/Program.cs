@@ -12,6 +12,7 @@ builder.Services.AddScoped<IModel, ModelService>();
 builder.Services.AddScoped< IVites,VitesService>();
 builder.Services.AddScoped<IYakit,YakitService>();
 builder.Services.AddScoped<IAraba, ArabaService>();
+builder.Services.AddScoped<IUser, UserService>();
 
 
 

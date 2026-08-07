@@ -18,5 +18,6 @@ public class RentACarDbContext : DbContext
     public DbSet<Vites> Vitesler { get; set; }
     public DbSet<Yakit> Yakitlar { get; set; }
     
+    public DbSet<User>  Users { get; set; }
     
 }
