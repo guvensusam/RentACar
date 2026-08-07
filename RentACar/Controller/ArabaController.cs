@@ -31,7 +31,7 @@ public class ArabaController : ControllerBase
 
         return Ok(sonuc);
     }
-
+    
     [HttpGet("{id}")]
     public async Task<ActionResult<ArabaResponseDto>> GetArabaById(int id)
     {

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RentACar.DTOs;
-using RentACar.Model;
+
 using RentACar.Service;
 
 namespace RentACar.Controller;

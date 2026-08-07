@@ -1,6 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
 using RentACar.DTOs;
-using RentACar.Model;
+
 
 namespace RentACar.Service;
 
@@ -12,7 +12,7 @@ public interface IMarka
     
     Task<MarkaResponseDto> CreateMarka(MarkaCreateDto markaResponse);
     
-    public Task<bool>  UpdateMarka(int MarkaId,MarkaCreateDto markaResponse);
+    public Task<bool>  UpdateMarka(int markaId,MarkaCreateDto markaResponse);
     
     Task<bool> DeleteMarka(int markaId);
     

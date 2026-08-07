@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Mvc;
+
 using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.DTOs;
@@ -11,9 +11,9 @@ public class ArabaService :IAraba
 {
     private readonly RentACarDbContext _dbContext;
 
-    public ArabaService(RentACarDbContext _context)
+    public ArabaService(RentACarDbContext context)
     {
-        _dbContext = _context;
+        _dbContext = context;
     }
     
     
@@ -107,8 +107,8 @@ public class ArabaService :IAraba
           return null;
           
       }
-      var YakitVarmi=await _dbContext.Yakitlar.AnyAsync(x=>x.YakitId==dto.YakitId);
-      if (YakitVarmi == false)
+      var yakitVarmi=await _dbContext.Yakitlar.AnyAsync(x=>x.YakitId==dto.YakitId);
+      if (yakitVarmi == false)
       {
           return null;
       }

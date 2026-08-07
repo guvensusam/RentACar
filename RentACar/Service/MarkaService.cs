@@ -1,5 +1,4 @@
-﻿using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.AspNetCore.Mvc;
+﻿
 using Microsoft.EntityFrameworkCore;
 using RentACar.Data;
 using RentACar.DTOs;
@@ -48,9 +47,9 @@ public class MarkaService : IMarka
         return markaekle.ToDto();
     }
      
-    public async Task<bool> UpdateMarka(int MarkaId, MarkaCreateDto markaResponse)
+    public async Task<bool> UpdateMarka(int markaId, MarkaCreateDto markaResponse)
     {
-        var marka= await _context.Markalar.FindAsync(MarkaId);
+        var marka= await _context.Markalar.FindAsync(markaId);
         if (marka == null)
         {
             return false;
@@ -61,9 +60,9 @@ public class MarkaService : IMarka
         return true;
     }
 
-    public async Task<bool> DeleteMarka(int Id)
+    public async Task<bool> DeleteMarka(int id)
     {
-        var marka = await _context.Markalar.FirstOrDefaultAsync(x=>x.MarkaId == Id);
+        var marka = await _context.Markalar.FirstOrDefaultAsync(x=>x.MarkaId == id);
         if (marka == null)
         {
             return false;
