@@ -20,5 +20,15 @@ public class AuthController : ControllerBase
         var sonuc = await _user.RegisterAsync(userRegisterDto);
         return Ok(sonuc);              
     }
-    
+
+    [HttpPost("login")]
+    public async Task<ActionResult<UserLoginDto>> Login(UserLoginDto userLoginDto)
+    {
+        var sonuc = await _user.LoginAsync(userLoginDto);
+        if (sonuc == null)
+        {
+            return Unauthorized("Email veya şifre hatalı.");
+        }
+        return Ok(sonuc);
+    }
 }

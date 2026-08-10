@@ -4,7 +4,7 @@ namespace RentACar.Service;
 
 public interface IUser
 {
-    Task<UserResponseDto> RegisterAsync(UserRegisterDto user);
-
+   public  Task<UserResponseDto> RegisterAsync(UserRegisterDto user);
+   public  Task<LoginResponseDto?> LoginAsync(UserLoginDto user);
 
 }

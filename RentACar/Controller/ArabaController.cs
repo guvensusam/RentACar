@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.DTOs;
 using RentACar.Service;
@@ -23,6 +24,7 @@ public class ArabaController : ControllerBase
   
      
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<ArabaResponseDto>> CreateAraba(ArabaCreateDto arabaCreateDto)
     {
         var sonuc = await _services.CreateAraba(arabaCreateDto);
@@ -39,12 +41,14 @@ public class ArabaController : ControllerBase
     }
 
     [HttpPut("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<bool> UpdateAraba(int id, ArabaCreateDto arabaCreateDto)
     {
         return await  _services.UpdateAraba(id, arabaCreateDto);
     }
     
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<bool> DeleteAraba(int id)
     {
         return await _services.DeleteAraba(id);

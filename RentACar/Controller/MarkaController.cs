@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RentACar.DTOs;
 using RentACar.Model;
 using RentACar.Service;
@@ -34,6 +35,7 @@ public class MarkaController : ControllerBase
     }
     
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<MarkaResponseDto>> Create(MarkaCreateDto markaResponse)
     {
         var markaekle = await _service.CreateMarka(markaResponse);
@@ -41,6 +43,7 @@ public class MarkaController : ControllerBase
     }
 
     [HttpPut("{MarkaId}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<MarkaResponseDto>> Update(int MarkaId, MarkaCreateDto markaResponse)
     { 
         var updated = await _service.UpdateMarka(MarkaId, markaResponse); 
@@ -48,6 +51,7 @@ public class MarkaController : ControllerBase
     }
     
     [HttpDelete("{MarkaId}")]
+    [Authorize(Roles = "Admin")]
     public async Task< ActionResult<MarkaResponseDto> > Delete(int MarkaId){
         var deleted =await  _service.DeleteMarka(MarkaId);
         return Ok(deleted);}

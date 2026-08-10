@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RentACar.DTOs;
 
 using RentACar.Service;
@@ -34,6 +35,7 @@ public class ModelController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<CarModelResponseDto>> Create(CarModelCreateDto model)
     {
         var create = await _service.CreateModel(model);
@@ -41,6 +43,7 @@ public class ModelController : ControllerBase
     }
 
     [HttpPut("{modelId:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<CarModelResponseDto>> Update(int modelId,CarModelCreateDto model)
 
     {
@@ -50,6 +53,7 @@ public class ModelController : ControllerBase
     }
 
     [HttpDelete("{modelId:int}")]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<CarModelResponseDto>> Delete(int modelId)
     {
         var delete = await _service.DeleteModel(modelId);

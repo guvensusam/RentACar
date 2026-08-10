@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.DTOs;
 
@@ -24,6 +25,7 @@ public class YakitController : ControllerBase
     }
 
     [HttpPost]
+    [Authorize(Roles = "Admin")]
     public async Task<ActionResult<YakitResponseDto>> Create(YakitCreateDto yakitCreate)
     {
         return Ok(await _service.CreateAsync(yakitCreate));

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using RentACar.DTOs;
 using RentACar.Service;
@@ -22,6 +23,7 @@ public class VitesController : ControllerBase
  }
 
  [HttpPost]
+ [Authorize(Roles = "Admin")]
  public async Task <ActionResult<VitesResponseDto>> Create(VitesCreateDto dto)
  {
    return Ok(await _service.CreateAsync(dto));
