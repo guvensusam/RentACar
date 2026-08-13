@@ -5,5 +5,5 @@ public enum RentalStatus
     Acik,
     Tamamlandi,
     IptalEdildi,
-    Aktif
+    Kullanimda
 }
