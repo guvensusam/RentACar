@@ -14,14 +14,20 @@ public class ArabaController : ControllerBase
     {
        _services = services;
     }
-
+    
+    
+    [Authorize]
     [HttpGet]
     public async Task<ActionResult<IEnumerable<ArabaResponseDto>>> GetAll([FromQuery] ArabaFilterDto filter)
     {
         return  Ok(await _services.GetAllAraba(filter));
     }
     
-  
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ArabaResponseDto>> GetArabaById(int id)
+    {
+        return Ok(await _services.GetArabaById(id));
+    }
      
     [HttpPost]
     [Authorize(Roles = "Admin")]
@@ -34,12 +40,8 @@ public class ArabaController : ControllerBase
         return Ok(sonuc);
     }
     
-    [HttpGet("{id}")]
-    public async Task<ActionResult<ArabaResponseDto>> GetArabaById(int id)
-    {
-        return Ok(await _services.GetArabaById(id));
-    }
-
+     
+    
     [HttpPut("{id}")]
     [Authorize(Roles = "Admin")]
     public async Task<bool> UpdateAraba(int id, ArabaCreateDto arabaCreateDto)

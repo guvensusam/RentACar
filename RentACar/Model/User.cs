@@ -8,4 +8,5 @@ public class User
     public string AdSoyad { get; set; }=string.Empty;
     public string Role { get; set; } = "Musteri";
     
+    public ICollection<Rental> Rentals { get; set; }
 }

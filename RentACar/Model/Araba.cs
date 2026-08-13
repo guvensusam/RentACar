@@ -23,6 +23,6 @@ public class Araba
     public int YakitID { get; set; }
     
     
-    
+    public ICollection<Rental> Rentals { get; set; }
     
 }
