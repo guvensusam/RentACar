@@ -2,8 +2,8 @@ namespace RentACar.Model;
 
 public enum RentalStatus
 {
-    Aktif,
+    Acik,
     Tamamlandi,
     IptalEdildi,
-    Beklemede
+    Aktif
 }

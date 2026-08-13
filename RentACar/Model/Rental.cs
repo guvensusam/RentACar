@@ -12,7 +12,7 @@ public class Rental
    public decimal DailyPrice { get; set; }
    public decimal TotalPrice { get; set; }
    
-   public RentalStatus Status { get; set; }=RentalStatus.Aktif;
+   public RentalStatus Status { get; set; }=RentalStatus.Acik;
    
    
    public DateTime CreateAt { get; set; }=DateTime.Now;
