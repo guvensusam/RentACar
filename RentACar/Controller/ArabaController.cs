@@ -18,9 +18,12 @@ public class ArabaController : ControllerBase
     
     [Authorize]
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<ArabaResponseDto>>> GetAll([FromQuery] ArabaFilterDto filter)
+    public async Task<ActionResult<PagedResponse<ArabaResponseDto>>> GetAll(
+        [FromQuery] ArabaFilterDto filter,
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
     {
-        return  Ok(await _services.GetAllAraba(filter));
+        return  Ok(await _services.GetAllAraba(filter, page, pageSize));
     }
     
     [HttpGet("{id}")]

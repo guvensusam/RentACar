@@ -17,7 +17,7 @@ public class ArabaService :IAraba
     }
     
     
-   public async Task<IEnumerable<ArabaResponseDto>> GetAllAraba(ArabaFilterDto filter)
+   public async Task<PagedResponse<ArabaResponseDto>> GetAllAraba(ArabaFilterDto filter, int page = 1, int pageSize = 10)
     {
         var query = _dbContext.Arabalarr
             .Include(x=>x.CarModeli)
@@ -77,8 +77,22 @@ public class ArabaService :IAraba
             query=query.Where(x=>x.ArabaYasi>=filter.MinYil.Value);
         }
 
-        var arabalar = await query.ToListAsync();
-        return arabalar.Select(x=>x.ToArabaDto());
+        query = query.OrderBy(x => x.Id);
+
+        var toplamSayi = await query.CountAsync();
+
+        var arabalar = await query
+            .Skip((page - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return new PagedResponse<ArabaResponseDto>()
+        {
+            TotalCount = toplamSayi,
+            Page = page,
+            PageSize = pageSize,
+            Items = arabalar.Select(x=>x.ToArabaDto()),
+        };
     }
     
     public async Task<ArabaResponseDto> GetArabaById(int arabaId)
