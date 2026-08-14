@@ -58,4 +58,66 @@ public class RentalService : IRental
         await _context.SaveChangesAsync();
         return rental.ToRentalDto();
     }
+
+    public async Task<IEnumerable<RentalResponseDto>> GetMyRentals(int userId)
+    {
+        var rentals = await _context.Rentals
+            .Where(x => x.UserId == userId)
+            .ToListAsync();
+
+        return rentals.Select(x => x.ToRentalDto());
+    }
+
+    public async Task<RentalResponseDto> GetRentalById(int id, int userId)
+    {
+        var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.RentalId == id);
+
+        if (rental == null)
+        {
+            throw new Exception("Kiralama bulunamadı");
+        }
+
+        if (rental.UserId != userId)
+        {
+            throw new UnauthorizedAccessException("Bu kiralamaya erişim yetkiniz yok");
+        }
+
+        return rental.ToRentalDto();
+    }
+
+    public async Task<RentalResponseDto> CancelRental(int id, int userId)
+    {
+        var rental = await _context.Rentals.FirstOrDefaultAsync(x => x.RentalId == id);
+
+        if (rental == null)
+        {
+            throw new Exception("Kiralama bulunamadı");
+        }
+
+        if (rental.UserId != userId)
+        {
+            throw new UnauthorizedAccessException("Bu kiralamayı iptal etme yetkiniz yok");
+        }
+
+        if (rental.Status != RentalStatus.Acik)
+        {
+            throw new Exception("Bu kiralama zaten iptal edilmiş veya tamamlanmış");
+        }
+
+        if (rental.StartDate <= DateTime.Now)
+        {
+            throw new Exception("Başlamış bir kiralama iptal edilemez");
+        }
+
+        rental.Status = RentalStatus.IptalEdildi;
+        await _context.SaveChangesAsync();
+
+        return rental.ToRentalDto();
+    }
+
+    public async Task<IEnumerable<RentalResponseDto>> GetAllRentals()
+    {
+        var rentals = await _context.Rentals.ToListAsync();
+        return rentals.Select(x => x.ToRentalDto());
+    }
 }

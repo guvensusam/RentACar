@@ -17,6 +17,15 @@ builder.Services.AddScoped<IYakit, YakitService>();
 builder.Services.AddScoped<IAraba, ArabaService>();
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IRental, RentalService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("GelistirmeIcin", policy =>
+    {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    });
+});
 
 builder.Services.AddDbContext<RentACarDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -58,6 +67,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("GelistirmeIcin");
 
 app.UseAuthentication();
 app.UseAuthorization();
