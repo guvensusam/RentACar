@@ -7,11 +7,11 @@ public interface IRental
 {
      Task<RentalResponseDto> CreateRental (RentalCreateDto rentalCreateDto, int userId);
 
-     Task<IEnumerable<RentalResponseDto>> GetMyRentals(int userId);
+     Task<PagedResponse<RentalResponseDto>> GetMyRentals(int userId, int page = 1, int pageSize = 10);
 
      Task<RentalResponseDto> GetRentalById(int id, int userId);
 
      Task<RentalResponseDto> CancelRental(int id, int userId);
 
-     Task<IEnumerable<RentalResponseDto>> GetAllRentals();
+     Task<PagedResponse<RentalResponseDto>> GetAllRentals(int page = 1, int pageSize = 10);
 }

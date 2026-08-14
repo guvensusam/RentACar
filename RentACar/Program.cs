@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using RentACar.Data;
+using RentACar.Exceptions;
 using RentACar.Service;
 using Microsoft.OpenApi;
 
@@ -17,6 +18,10 @@ builder.Services.AddScoped<IYakit, YakitService>();
 builder.Services.AddScoped<IAraba, ArabaService>();
 builder.Services.AddScoped<IUser, UserService>();
 builder.Services.AddScoped<IRental, RentalService>();
+
+builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
+builder.Services.AddProblemDetails();
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("GelistirmeIcin", policy =>
@@ -56,6 +61,8 @@ builder.Services.AddOpenApi(options =>
 });
 
 var app = builder.Build();
+
+app.UseExceptionHandler();
 
 if (app.Environment.IsDevelopment())
 {

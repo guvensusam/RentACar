@@ -23,24 +23,19 @@ public class RentalController : ControllerBase
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        try
-        {
-            var sonuc = await _services.CreateRental(rentalCreateDto, userId);
-            return Ok(sonuc);
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var sonuc = await _services.CreateRental(rentalCreateDto, userId);
+        return Ok(sonuc);
     }
 
     [HttpGet("my-rentals")]
     [Authorize]
-    public async Task<ActionResult<IEnumerable<RentalResponseDto>>> GetMyRentals()
+    public async Task<ActionResult<PagedResponse<RentalResponseDto>>> GetMyRentals(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        var sonuc = await _services.GetMyRentals(userId);
+        var sonuc = await _services.GetMyRentals(userId, page, pageSize);
         return Ok(sonuc);
     }
 
@@ -50,19 +45,8 @@ public class RentalController : ControllerBase
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        try
-        {
-            var sonuc = await _services.GetRentalById(id, userId);
-            return Ok(sonuc);
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return Forbid();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var sonuc = await _services.GetRentalById(id, userId);
+        return Ok(sonuc);
     }
 
     [HttpPut("{id}/cancel")]
@@ -71,26 +55,17 @@ public class RentalController : ControllerBase
     {
         var userId = int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier));
 
-        try
-        {
-            var sonuc = await _services.CancelRental(id, userId);
-            return Ok(sonuc);
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return Forbid();
-        }
-        catch (Exception ex)
-        {
-            return BadRequest(ex.Message);
-        }
+        var sonuc = await _services.CancelRental(id, userId);
+        return Ok(sonuc);
     }
 
     [HttpGet("all")]
     [Authorize(Roles = "Admin")]
-    public async Task<ActionResult<IEnumerable<RentalResponseDto>>> GetAllRentals()
+    public async Task<ActionResult<PagedResponse<RentalResponseDto>>> GetAllRentals(
+        [FromQuery] int page = 1,
+        [FromQuery] int pageSize = 10)
     {
-        var sonuc = await _services.GetAllRentals();
+        var sonuc = await _services.GetAllRentals(page, pageSize);
         return Ok(sonuc);
     }
 }
