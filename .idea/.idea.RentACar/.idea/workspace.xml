@@ -9,7 +9,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d1d1f89c-93f0-4d4a-b2ed-95cee52c29e0" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/RentACar/Exceptions/ConflictException.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RentACar/Exceptions/ConflictException.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.RentACar/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.RentACar/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/RentACar/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/RentACar/Program.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -161,7 +162,7 @@
       <workItem from="1786702528502" duration="5322000" />
       <workItem from="1786710675165" duration="871000" />
       <workItem from="1786712155217" duration="963000" />
-      <workItem from="1786949662233" duration="1057000" />
+      <workItem from="1786949662233" duration="5192000" />
     </task>
     <servers />
   </component>

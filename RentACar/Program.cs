@@ -71,6 +71,10 @@ if (app.Environment.IsDevelopment())
     {
         options.SwaggerEndpoint("/openapi/v1.json", "RentACar API v1");
     });
+
+    // wwwroot/index.html — API test paneli (yalnızca geliştirme ortamında servis edilir)
+    app.UseDefaultFiles();
+    app.UseStaticFiles();
 }
 
 app.UseHttpsRedirection();
